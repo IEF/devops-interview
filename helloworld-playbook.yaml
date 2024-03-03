@@ -1,0 +1,31 @@
+---
+- name: Clone and build HelloWorld container
+  hosts: all
+  remote_user: debian
+  become: true
+
+  tasks:
+    - name: Clone repository
+      ansible.builtin.git:
+        repo: https://github.com/IEF/devops-interview.git
+        dest: /home/debian/devops-interview
+        version: main
+
+    - name: Build container
+      docker_image:
+        name: helloworld
+        tag: latest
+        build:
+          path: /home/debian/devops-interview/helloworld
+          args:
+            listen_port: 8080
+        source: build
+
+    - name: Run container
+      docker_container:
+        name: helloworld
+        image: helloworld:latest
+        published_ports: 8080:8080
+
+
+
