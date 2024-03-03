@@ -43,6 +43,6 @@ jobs:
                 uses: docker/build-push-action@v5
                 with:
                   context: ./helloworld
-                  file: GA_Dockerfile
+                  file: ./helloworld/GA_Dockerfile
                   push: true
                   tags: senverbrugge/helloworld:latest
