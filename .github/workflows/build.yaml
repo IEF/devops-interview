@@ -1,0 +1,21 @@
+name: Build HelloWorld
+
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+              - name: Checkout
+                uses: actions/checkout@v4.1.1
+              - name: Setup Java JDK
+                uses: actions/setup-java@v4.1.0
+                with:
+                  distribution: 'temurin'
+                  java-version: '21'
+              - run: ./helloworld/gradlew build --no-daemon
